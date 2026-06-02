@@ -27,6 +27,20 @@ const gamesContainer = document.getElementById("games-container");
 
 // create a function that adds all data from the games array to the page
 function addGamesToPage(games) {
+    for (let i = 0; i < games.length; i++) {
+        const gameCard = document.createElement("div");
+
+        gameCard.classList.add("game-card");
+
+        gameCard.innerHTML = `
+        <img src="${games[i].img}" class="game-img" />
+        <h3>${games[i].name}</h3>
+        <p>${games[i].description}</p>
+        <p>Backers: ${games[i].backers}</p>
+        `;
+    }
+
+    gamesContainer.appendChild(gameCard);
 
     // loop over each item in the data
 
@@ -59,6 +73,12 @@ function addGamesToPage(games) {
 
 // grab the contributions card element
 const contributionsCard = document.getElementById("num-contributions");
+
+const totalContributions = GAMES_JSON.reduce((acc, game) => {
+    return acc + game.backers;
+}, 0);
+
+contributionsCard.innerText = totalContributions.toLocaleString();
 
 // use reduce() to count the number of total contributions by summing the backers
 
